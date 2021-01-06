@@ -4,41 +4,41 @@ Work wants an inventory app that:
     Uses the command line to list/add/update/delete:
         "Items" they have:
             id
+            name
             cond
-            ?checkedIn?
 """
-from models.item import Item
+from models.item import Item # An Import Statement to make code available in this file
 
 next_id = 0
-items = []
+items = [] # This will be used to store items
 # TODO Make a menu print out showing options
-def menu():
+def menu(): # Prints Menu Options for the user
     print("""
 1. List All Items
-2. Add New Item 
+2. Add New Item
 3. Update Existing Item
 4. Delete Item (By item id)
 5. Exit
 """)
 
-# List all Items
-def list_items():
+# List all Items 
+def list_items(): # Writes all items to the terminal
     for item in items:
         print(item)
-        
+
 # Add New Item
-def new_item():
-    global next_id
-    global items 
+def new_item(): # Gets user input for all needed fields for an Item
+    global next_id # Allows us access to the next_id number
 
     name = input("Name: ")
     cond = input("Condition: ")
-    item_id = next_id
+    item_id = next_id # Uses the global counter to give a Unique Id to each item
 
-    next_id += 1
+    next_id += 1 # Updates Id with new value so next one is 1 more
 
-    tmp = (Item(item_id, name, cond))
-    items.append(tmp)
+    # This is the Class -> Item from the other file we imported
+    tmp = Item(item_id, name, cond) # Builds an Item/Stores it in tmp
+    items.append(tmp) # Adds Item to global items array
 
 
 # Update Existing Item
@@ -49,24 +49,30 @@ def update_existing(itemId):
 def delete_item(itemId):
     pass
 
-# Make the menu questions that grab the data
-def main()
+# Make the menu questions that grab the data 
+def main(): # Starts the Program off, holds the loop until exit.
     while True:
-        menu()
-        choice = input("> ")
+        menu() # Prints the Options to the Terminal 
+        choice = input("> ") # Takes user choice
 
+        #The Conditional Options 
+        # hands off the work to the functions above.
         if choice == "1":
-            list_items()
+            list_items() 
         elif choice == "2":
             new_item()
         elif choice == "3":
             pass
         elif choice == "4":
-            pass    
-        if choice == "5":
+            pass
+        elif choice == "5": # Exit
             exit()
-        else:
-            input("Invalid Input, give a number\n(Press Enter to try again)")
+        else: # User gave us bad input we let them know then loop again.
+            input("Invalid Input!\n(Press Enter to try again)")
 
 
-# Make the File Saving Stuff
+# Make the File Saving stuff
+
+if __name__ == "__main__":
+    main()
+
