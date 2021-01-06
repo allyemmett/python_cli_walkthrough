@@ -7,8 +7,10 @@ Work wants an inventory app that:
             cond
             ?checkedIn?
 """
+from models.item import Item
+
 next_id = 0
-items = [1, 2, 3]
+items = []
 # TODO Make a menu print out showing options
 def menu():
     print("""
@@ -23,14 +25,21 @@ def menu():
 def list_items():
     for item in items:
         print(item)
-    print("in list item function")
+        
 # Add New Item
 def new_item():
     global next_id
+    global items 
+
     name = input("Name: ")
     cond = input("Condition: ")
     item_id = next_id
+
     next_id += 1
+
+    tmp = (Item(item_id, name, cond))
+    items.append(tmp)
+
 
 # Update Existing Item
 def update_existing(itemId):
@@ -41,22 +50,23 @@ def delete_item(itemId):
     pass
 
 # Make the menu questions that grab the data
-while True:
-    menu()
-    choice = input("> ")
+def main()
+    while True:
+        menu()
+        choice = input("> ")
 
-    if choice == "1":
-        list_items()
-    elif choice == "2":
-        new_item()
-    elif choice == "3":
-        pass
-    elif choice == "4":
-        pass    
-    if choice == "5":
-        exit()
-    else:
-        input("Invalid Input, give a number\n(Press Enter to try again)")
+        if choice == "1":
+            list_items()
+        elif choice == "2":
+            new_item()
+        elif choice == "3":
+            pass
+        elif choice == "4":
+            pass    
+        if choice == "5":
+            exit()
+        else:
+            input("Invalid Input, give a number\n(Press Enter to try again)")
 
 
 # Make the File Saving Stuff
