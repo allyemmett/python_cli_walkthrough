@@ -41,11 +41,33 @@ def new_item():  # Gets user input for all need fields for an Item
     items.append(tmp)  # Adds Item to global items array
 
 # Update Existing Item
-def update_existing(itemId):
-    pass
+def update_existing():
+    print("inside update existing")
+    if not items:
+        print("You have no items to update")
+        return
+    list_items()
+    try:
+        item_id_to_update = int(input("What is the item id you wish to update\n>"))
+    except Exception:
+        print("not a valid number")
+        return
+
+    for item in items:
+        if item.item_id == item_id_to_update:
+            name = input("Name: ")
+            cond = input("Condition: ")
+            item.name = name
+            item.condition = cond
+            break
+    else: # if for loop does not find a match, else will fire EVEN THOUGH else is outside for loop (when else is outside, will fire if at END of loop no match is found)
+        print("We didn't find a match")
+
 
 # Delete Item (By item id)
-def delete_item(itemId):
+def delete_item():
+    print("inside del item")
+
     pass
 
 def main():  # Starts the Program off, holds the loop until exit.
@@ -54,15 +76,15 @@ def main():  # Starts the Program off, holds the loop until exit.
         choice = input("> ")  # Takes use choice
 
         # The Conditional Options: hands off the work to the functions above.
-        if choice == "1": 
+        if choice == "1":
             list_items() 
         elif choice == "2":
             new_item()
         elif choice == "3":
-            pass
+            update_existing()
         elif choice == "4":
-            pass
-        elif choice == "5": # Exit
+            delete_item()
+        elif choice == "5":  # Exit
             exit()
         else:  # User gave us bad input we let them know then loop again.
             input("Invalid Input!\n(Press Enter to try again)")
@@ -72,4 +94,4 @@ def main():  # Starts the Program off, holds the loop until exit.
 
 if __name__ == "__main__":
     main()
-    
+
