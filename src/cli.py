@@ -12,7 +12,6 @@ from models.item import Item  # And Import Statement to make code from other fil
 next_id = 0
 items = []  # This will be used to store items
 
-
 def menu():  # Prints Menu Options for the user
     print("""
 1. List All Items
@@ -40,8 +39,7 @@ def new_item():  # Gets user input for all need fields for an Item
 
     items.append(tmp)  # Adds Item to global items array
 
-# Update Existing Item
-def update_existing():
+def update_existing(): # Update Existing Item
     print("inside update existing")
     if not items:
         print("You have no items to update")
@@ -64,11 +62,26 @@ def update_existing():
         print("We didn't find a match")
 
 
-# Delete Item (By item id)
-def delete_item():
+def delete_item(): # Delete Item (By item id)
     print("inside del item")
-
-    pass
+    if not items: # check make sure have item
+        print("You have no items to update")
+        return
+    list_items() # shows choices for user 
+    try:
+        item_id_to_delete = int(input("What is the item you wish to update\n>")) # turn user input into number
+    except Exception: # if casting from string to number fails, then back to menu loop
+        print("Not a valid number.")
+        return
+    for index, item in enumerate(items): # Otherwise, look at items in list... need enumerate with index 
+        if item.item_id == item_id_to_delete: # if id is same as number to type in,
+            index_to_remove = index # then will remove the item with the id inputted by user
+            break
+    else:
+        print("We didn't find a match")
+        return
+    print(f"Found:\n{items.pop(index_to_remove)} it has been removed") # removes item from list, but also gives back to user 
+    
 
 def main():  # Starts the Program off, holds the loop until exit.
     while True:
@@ -90,7 +103,7 @@ def main():  # Starts the Program off, holds the loop until exit.
             input("Invalid Input!\n(Press Enter to try again)")
 
 
-# Make the File Saving stuff
+# TODO Make the File Saving stuff
 
 if __name__ == "__main__":
     main()
